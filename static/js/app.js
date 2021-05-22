@@ -208,7 +208,6 @@ function optionChanged(id) {
     // plot the charts for this id
     plotCharts(id);
 
-
 } 
 
 // call the init() function for default data
