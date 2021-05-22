@@ -161,7 +161,7 @@ function plotCharts(id) {
             marker: {
                 size: sampleValues[0],
                 color: otuIds[0],
-                colorscale: 'YlGnBu'
+                colorscale: 'Picnic'
             }
         };
 
