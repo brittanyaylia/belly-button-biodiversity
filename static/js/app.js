@@ -198,3 +198,18 @@ function plotCharts(id) {
 
     })); 
 };
+
+// change in the dropdown menu
+function optionChanged(id) {
+
+    // reset the data
+    resetData();
+
+    // plot the charts for this id
+    plotCharts(id);
+
+
+} 
+
+// call the init() function for default data
+init();
