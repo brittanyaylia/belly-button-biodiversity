@@ -52,7 +52,7 @@ function plotCharts(id) {
         // get the wash frequency for gauge chart later
         var wfreq = individualMetadata.wfreq;
 
-        // Iterate through each key and value in the metadata
+        // iterate through metadata
         Object.entries(individualMetadata).forEach(([key, value]) => {
 
             var newList = demographicsTable.append("ul");
@@ -100,13 +100,11 @@ function plotCharts(id) {
         }); 
 
          // top 10 values, labels and ids
-
          var topOtuIds = otuIds[0].slice(0, 10).reverse();
          var topOtuLabels = otuLabels[0].slice(0, 10).reverse();
          var topSampleValues = sampleValues[0].slice(0, 10).reverse();
  
          // store the ids with "OTU" for labelling y-axis
-
          var topOtuIdsFormatted = topOtuIds.map(otuID => "OTU " + otuID);
 
          // plot bar chart 
@@ -155,3 +153,48 @@ function plotCharts(id) {
         }
 
         Plotly.newPlot("bar", dataBar, layoutBar);
+        
+        // plot bubble chart 
+
+        // trace 
+        var traceBub = {
+            x: otuIds[0],
+            y: sampleValues[0],
+            text: otuLabels[0],
+            mode: 'markers',
+            marker: {
+                size: sampleValues[0],
+                color: otuIds[0],
+                colorscale: 'YlGnBu'
+            }
+        };
+
+        // array for plot
+        var dataBub = [traceBub];
+
+        // plot layout
+        var layoutBub = {
+            font: {
+                family: 'Quicksand'
+            },
+            hoverlabel: {
+                font: {
+                    family: 'Quicksand'
+                }
+            },
+            xaxis: {
+                title: "<b>OTU Id</b>",
+                color: 'rgb(34,94,168)'
+            },
+            yaxis: {
+                title: "<b>Sample Values</b>",
+                color: 'rgb(34,94,168)'
+            },
+            showlegend: false,
+        };
+
+        // plot the bubble chart 
+        Plotly.newPlot('bubble', dataBub, layoutBub);
+
+    })); 
+};
