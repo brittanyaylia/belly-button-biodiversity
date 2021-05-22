@@ -115,7 +115,7 @@ function plotCharts(id) {
             type: 'bar',
             orientation: 'h',
             marker: {
-                color: 'rgb(29,145,192)'
+                color: "thistle"
             }
         };
 
@@ -135,15 +135,11 @@ function plotCharts(id) {
                 }
             },
             title: {
-                text: `<b>Top 10 Bacteria Cultures Found ${id}</b>`,
+                text: `<b>Top 10 Bacteria Cultures Found</b>`,
                 font: {
                     size: 18,
                     color: 'rgb(34,94,168)'
                 }
-            },
-            xaxis: {
-                title: "<b>Sample values<b>",
-                color: 'rgb(34,94,168)'
             },
             yaxis: {
                 tickfont: { size: 14 }
