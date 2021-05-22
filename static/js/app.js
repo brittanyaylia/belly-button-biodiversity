@@ -38,7 +38,6 @@ function resetData() {
     demographicsTable.html("");
     barChart.html("");
     bubbleChart.html("");
-    gaugeChart.html("");
 
 }; 
 
@@ -138,7 +137,7 @@ function plotCharts(id) {
                 text: `<b>Top 10 Bacteria Cultures Found</b>`,
                 font: {
                     size: 18,
-                    color: 'rgb(34,94,168)'
+                    color: 'black'
                 }
             },
             yaxis: {
@@ -179,12 +178,12 @@ function plotCharts(id) {
                 }
             },
             xaxis: {
-                title: "<b>OTU Id</b>",
-                color: 'rgb(34,94,168)'
+                title: "<b>OTU ID</b>",
+                color: 'black'
             },
             yaxis: {
                 title: "<b>Sample Values</b>",
-                color: 'rgb(34,94,168)'
+                color: 'black'
             },
             showlegend: false,
         };
