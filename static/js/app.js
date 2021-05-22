@@ -98,3 +98,30 @@ function plotCharts(id) {
             } 
 
         }); 
+
+         // top 10 values, labels and ids
+
+         var topOtuIds = otuIds[0].slice(0, 10).reverse();
+         var topOtuLabels = otuLabels[0].slice(0, 10).reverse();
+         var topSampleValues = sampleValues[0].slice(0, 10).reverse();
+ 
+         // store the ids with "OTU" for labelling y-axis
+
+         var topOtuIdsFormatted = topOtuIds.map(otuID => "OTU " + otuID);
+
+         // plot bar chart 
+         
+         //trace 
+         var traceBar = {
+            x: topSampleValues,
+            y: topOtuIdsFormatted,
+            text: topOtuLabels,
+            type: 'bar',
+            orientation: 'h',
+            marker: {
+                color: 'rgb(29,145,192)'
+            }
+        };
+
+        // array for plotting
+        var dataBar = [traceBar];
