@@ -30,3 +30,13 @@ function init() {
     }));
 }
 
+// reset divs 
+function resetData() {
+
+    demographicsTable.html("");
+    barChart.html("");
+    bubbleChart.html("");
+    gaugeChart.html("");
+
+}; 
+
