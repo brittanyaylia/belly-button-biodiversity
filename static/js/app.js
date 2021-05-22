@@ -1,28 +1,27 @@
-// bar chart, bubble chart & gauge 
+// bar & bubble plot with drop down menu 
 
 
 var idSelect = d3.select("#selDataset");
 var demographicsTable = d3.select("#sample-metadata");
 var barChart = d3.select("#bar");
 var bubbleChart = d3.select("bubble");
-var gaugeChart = d3.select("gauge");
 
-// create a function to populate dropdown menu 
+// populate dropdown menu with ids
 function init() {
 
-    // reset any previous data
+    // reset previous data
     resetData();
 
-    // read in samples from JSON file
+    // samples from JSON file
     d3.json("data/samples.json").then((data => {
 
-        //  use a forEach to loop over each name in the array data.names to populate dropdowns with IDs
+        //  loop over each name in the array data.names to populate dropdown
         data.names.forEach((name => {
             var option = idSelect.append("option");
             option.text(name);
-        })); // close forEach
+        })); 
 
-        // get the first ID from the list for initial charts as a default
+        // get the first id from the list
         var initId = idSelect.property("value")
 
         // plot charts with initial ID
@@ -32,27 +31,23 @@ function init() {
 
 } 
 
-// create a function to reset divs
+// reset divs for new data
 function resetData() {
 
     demographicsTable.html("");
     barChart.html("");
     bubbleChart.html("");
-    gaugeChart.html("");
 
 }; 
 
-// create a function to read JSON and plot charts
+// read JSON and plot charts
 function plotCharts(id) {
 
-    // read in the JSON data
+    // read in JSON data
     d3.json("data/samples.json").then((data => {
 
-        // filter the metadata 
+        // filter the metadata id 
         var individualMetadata = data.metadata.filter(participant => participant.id == id)[0];
-
-        // get the wash frequency 
-        var wfreq = individualMetadata.wfreq;
 
         // iterate through metadata
         Object.entries(individualMetadata).forEach(([key, value]) => {
@@ -63,7 +58,7 @@ function plotCharts(id) {
             // append a li item to the unordered list tag
             var listItem = newList.append("li");
 
-            // change the class attributes of the list item for styling
+            // change the class attributes for styling
             listItem.attr("class", "list-group-item p-1 demo-text bg-transparent");
 
             // add the key value pair from the metadata to the demographics list
@@ -71,10 +66,10 @@ function plotCharts(id) {
 
         }); 
 
-        // filter the samples 
+        // filter samples for the selected id 
         var individualSample = data.samples.filter(sample => sample.id == id)[0];
 
-        // create arrays to store sample data
+        // arrays for sample data
         var otuIds = [];
         var otuLabels = [];
         var sampleValues = [];
@@ -97,7 +92,7 @@ function plotCharts(id) {
                     break;
             } 
 
-        });
+        }); 
 
         // get the top 10 values, labels and ids
         var topOtuIds = otuIds[0].slice(0, 10).reverse();
@@ -115,7 +110,7 @@ function plotCharts(id) {
             type: 'bar',
             orientation: 'h',
             marker: {
-                color: "thistle"
+                color: 'rgb(29,145,192)'
             }
         };
 
@@ -127,11 +122,11 @@ function plotCharts(id) {
             height: 500,
             width: 600,
             font: {
-                family: 'Montserrat'
+                family: 'Quicksand'
             },
             hoverlabel: {
                 font: {
-                    family: 'Montserrat'
+                    family: 'Quicksand'
                 }
             },
             title: {
@@ -142,7 +137,7 @@ function plotCharts(id) {
                 }
             },
             xaxis: {
-                title: "<b>Sample Values<b>",
+                title: "<b>Cultures<b>",
                 color: 'rgb(34,94,168)'
             },
             yaxis: {
@@ -151,10 +146,8 @@ function plotCharts(id) {
         }
 
 
-        // plot the bar chart 
+        // plot bar chart 
         Plotly.newPlot("bar", dataBar, layoutBar);
-
-        // plot bubble chart
 
         // trace
         var traceBub = {
@@ -175,15 +168,15 @@ function plotCharts(id) {
         // plot layout
         var layoutBub = {
             font: {
-                family: 'Montserrat'
+                family: 'Quicksand'
             },
             hoverlabel: {
                 font: {
-                    family: 'Montserrat'
+                    family: 'Quicksand'
                 }
             },
             xaxis: {
-                title: "<b>OTU ID</b>",
+                title: "<b>OTU Id</b>",
                 color: 'rgb(34,94,168)'
             },
             yaxis: {
@@ -193,17 +186,17 @@ function plotCharts(id) {
             showlegend: false,
         };
 
-        // plot the bubble chart
+        // plot bubble chart 
         Plotly.newPlot('bubble', dataBub, layoutBub);
 
-        // plot gauge chart 
+        // gauge chart 
 
-        // null value > zero 
+        // null = zero
         if (wfreq == null) {
             wfreq = 0;
         }
 
-        // trace
+        // trace 
         var traceGauge = {
             domain: { x: [0, 1], y: [0, 1] },
             value: wfreq,
@@ -217,7 +210,7 @@ function plotCharts(id) {
                         size: 15
                     }
                 },
-                bar: { color: 'rgba(8,29,88,0)' }, // make gauge bar transparent 
+                bar: { color: 'rgba(8,29,88,0)' }, // making gauge bar transparent 
                 steps: [
                     { range: [0, 1], color: 'rgb(255,255,217)' },
                     { range: [1, 2], color: 'rgb(237,248,217)' },
@@ -232,17 +225,17 @@ function plotCharts(id) {
             }
         };
 
-        // angle for each wfreq segment 
+        // determine angle for each wfreq segment on the chart
         var angle = (wfreq / 9) * 180;
 
-        // end points for triangle pointer path
+        // calculate end points for triangle pointer path
         var degrees = 180 - angle,
             radius = .8;
         var radians = degrees * Math.PI / 180;
         var x = radius * Math.cos(radians);
         var y = radius * Math.sin(radians);
 
-        // create needle shape 
+        // Path: to create needle shape (triangle). Initial coordinates of two of the triangle corners plus the third calculated end tip that points to the appropriate segment on the gauge 
         // M aX aY L bX bY L cX cY Z
         var mainPath = 'M -.0 -0.025 L .0 0.025 L ',
             cX = String(x),
@@ -252,7 +245,7 @@ function plotCharts(id) {
 
         gaugeColors = ['rgb(8,29,88)', 'rgb(37,52,148)', 'rgb(34,94,168)', 'rgb(29,145,192)', 'rgb(65,182,196)', 'rgb(127,205,187)', 'rgb(199,233,180)', 'rgb(237,248,217)', 'rgb(255,255,217)', 'white']
 
-        // trace
+        // create a trace to draw the circle where the needle is centered
         var traceNeedleCenter = {
             type: 'scatter',
             showlegend: false,
@@ -263,13 +256,13 @@ function plotCharts(id) {
             hoverinfo: 'name'
         };
 
-        // data array from the two traces
+        // create a data array from the two traces
         var dataGauge = [traceGauge, traceNeedleCenter];
 
-        //  chart layout
+        // define a layout for the chart
         var layoutGauge = {
 
-            // draw the needle shape
+            // draw the needle pointer shape using path defined above
             shapes: [{
                 type: 'path',
                 path: path,
@@ -279,11 +272,11 @@ function plotCharts(id) {
                 }
             }],
             font: {
-                family: 'Montserrat'
+                family: 'Quicksand'
             },
             hoverlabel: {
                 font: {
-                    family: 'Montserrat',
+                    family: 'Quicksand',
                     size: 16
                 }
             },
@@ -312,7 +305,7 @@ function plotCharts(id) {
             }
         };
 
-        // plot gauge chart
+        // plot the gauge chart
         Plotly.newPlot('gauge', dataGauge, layoutGauge);
 
 
@@ -330,7 +323,7 @@ function optionChanged(id) {
     plotCharts(id);
 
 
-} 
+} // close optionChanged function
 
 // call the init() function for default data
 init();
