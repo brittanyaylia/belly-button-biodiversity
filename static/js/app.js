@@ -127,15 +127,15 @@ function plotCharts(id) {
             height: 500,
             width: 600,
             font: {
-                family: 'Quicksand'
+                family: 'Montserrat'
             },
             hoverlabel: {
                 font: {
-                    family: 'Quicksand'
+                    family: 'Montserrat'
                 }
             },
             title: {
-                text: `<b>Top OTUs for Test Subject ${id}</b>`,
+                text: `<b>Top 10 Bacteria Cultures Found ${id}</b>`,
                 font: {
                     size: 18,
                     color: 'rgb(34,94,168)'
@@ -175,11 +175,11 @@ function plotCharts(id) {
         // plot layout
         var layoutBub = {
             font: {
-                family: 'Quicksand'
+                family: 'Montserrat'
             },
             hoverlabel: {
                 font: {
-                    family: 'Quicksand'
+                    family: 'Montserrat'
                 }
             },
             xaxis: {
@@ -279,11 +279,11 @@ function plotCharts(id) {
                 }
             }],
             font: {
-                family: 'Quicksand'
+                family: 'Montserrat'
             },
             hoverlabel: {
                 font: {
-                    family: 'Quicksand',
+                    family: 'Montserrat',
                     size: 16
                 }
             },
