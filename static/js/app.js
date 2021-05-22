@@ -40,3 +40,61 @@ function resetData() {
 
 }; 
 
+// plot charts
+function plotCharts(id) {
+
+    // read in json data
+    d3.json("data/samples.json").then((data => {
+
+        // filter the metadata for the ID chosen
+        var individualMetadata = data.metadata.filter(participant => participant.id == id)[0];
+
+        // get the wash frequency for gauge chart later
+        var wfreq = individualMetadata.wfreq;
+
+        // Iterate through each key and value in the metadata
+        Object.entries(individualMetadata).forEach(([key, value]) => {
+
+            var newList = demographicsTable.append("ul");
+            newList.attr("class", "list-group list-group-flush");
+
+            // append a li item to the unordered list tag
+            var listItem = newList.append("li");
+
+            // change the class attributes of the list item for styling
+            listItem.attr("class", "list-group-item p-1 demo-text bg-transparent");
+
+            // add the key value pair from the metadata to the demographics list
+            listItem.text(`${key}: ${value}`);
+
+        }); 
+
+        // data for plotting charts 
+
+        // filter for the id chosen
+        var individualSample = data.samples.filter(sample => sample.id == id)[0];
+
+        // create arrays to store data
+        var otuIds = [];
+        var otuLabels = [];
+        var sampleValues = [];
+
+        // Iterate through each key and value in the sample to retrieve data for plotting
+        Object.entries(individualSample).forEach(([key, value]) => {
+
+            switch (key) {
+                case "otu_ids":
+                    otuIds.push(value);
+                    break;
+                case "sample_values":
+                    sampleValues.push(value);
+                    break;
+                case "otu_labels":
+                    otuLabels.push(value);
+                    break;
+                    // case
+                default:
+                    break;
+            } 
+
+        }); 
