@@ -141,6 +141,10 @@ function plotCharts(id) {
                     color: 'rgb(34,94,168)'
                 }
             },
+            xaxis: {
+                title: "<b>Sample Values<b>",
+                color: 'rgb(34,94,168)'
+            },
             yaxis: {
                 tickfont: { size: 14 }
             }
@@ -161,7 +165,7 @@ function plotCharts(id) {
             marker: {
                 size: sampleValues[0],
                 color: otuIds[0],
-                colorscale: 'YlGnBu'
+                colorscale: 'Picnic'
             }
         };
 
@@ -179,7 +183,7 @@ function plotCharts(id) {
                 }
             },
             xaxis: {
-                title: "<b>OTU Id</b>",
+                title: "<b>OTU ID</b>",
                 color: 'rgb(34,94,168)'
             },
             yaxis: {
