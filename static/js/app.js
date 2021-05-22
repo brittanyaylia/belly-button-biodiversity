@@ -125,3 +125,33 @@ function plotCharts(id) {
 
         // array for plotting
         var dataBar = [traceBar];
+
+        // plot layout
+        var layoutBar = {
+            height: 500,
+            width: 600,
+            font: {
+                family: 'Quicksand'
+            },
+            hoverlabel: {
+                font: {
+                    family: 'Quicksand'
+                }
+            },
+            title: {
+                text: `<b>Top OTUs for Test Subject ${id}</b>`,
+                font: {
+                    size: 18,
+                    color: 'rgb(34,94,168)'
+                }
+            },
+            xaxis: {
+                title: "<b>Sample values<b>",
+                color: 'rgb(34,94,168)'
+            },
+            yaxis: {
+                tickfont: { size: 14 }
+            }
+        }
+
+        Plotly.newPlot("bar", dataBar, layoutBar);
