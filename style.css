@@ -1,0 +1,29 @@
+* {
+    font-family: 'Montserrat', sans-serif;
+}
+
+.jumbo-bg {
+    background: url(./images/bacterium.jpg);
+    background-size: cover;
+}
+
+.demo-text {
+    font-size: 14px;
+}
+
+.card .card-header {
+    font-size: 15px;
+    font-weight: bold;
+}
+
+#selDataset {
+    font-size: 14px;
+}
+
+.belly-bg {
+    background-color: black !important
+}
+
+.header-font {
+    font-family: 'Montserrat', sans-serif;
+}

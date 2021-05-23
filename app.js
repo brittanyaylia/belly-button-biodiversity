@@ -77,12 +77,43 @@ function buildCharts(selection) {
             y: reformattedLabels,
             x: barChartValues,
             text: barCharthovertext,
-            orientation: 'h'
+            orientation: 'h',
+            marker: {
+                color: 'rgb(0, 0, 0)'
+            }
         };
 
         var barChartData = [barChartTrace];
 
-        Plotly.newPlot("bar", barChartData);
+          // define the plot layout
+          var layoutBar = {
+            height: 500,
+            width: 600,
+            font: {
+                family: 'PT Serif'
+            },
+            hoverlabel: {
+                font: {
+                    family: 'Montserrat'
+                }
+            },
+            title: {
+                text: `<b>Top 10 Bacteria Cultures Found</b>`,
+                font: {
+                    size: 18,
+                    color: 'rgb(0, 0, 0)'
+                }
+            },
+            xaxis: {
+                title: "<b>Sample Values<b>",
+                color: 'rgb(0, 0, 0)'
+            },
+            yaxis: {
+                tickfont: { size: 14 }
+            }
+        }
+
+        Plotly.newPlot("bar", barChartData, layoutBar);
 
         // create bubble chart
 
@@ -93,7 +124,8 @@ function buildCharts(selection) {
             mode: "markers",
             marker: {
                 color: idValues,
-                size: sampleValues
+                size: sampleValues,
+                colorscale: 'Electric'
             }
         };
 
@@ -103,6 +135,9 @@ function buildCharts(selection) {
             showlegend: false,
             height: 600,
             width: 1000,
+            font: {
+                family: 'PT Serif'
+            },
             xaxis: {
                 title: "OTU ID"
             }
